@@ -38,7 +38,13 @@ export const Todos = ({ user, token }) => {
   return user ? (
     <Container>
       {todos.map((todo) => (
-        <TodoCard todo={todo} key={todo._id} />
+        <TodoCard
+          token={token}
+          todo={todo}
+          render={render}
+          setRender={setRender}
+          key={todo._id}
+        />
       ))}
       <AddTodo token={token} render={render} setRender={setRender} />
     </Container>

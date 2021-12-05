@@ -1,10 +1,41 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import axios from "axios";
+import { Typography, Button } from "@mui/material";
 
-export const TodoCard = ({ todo }) => {
+export const TodoCard = ({ token, todo, render, setRender }) => {
+  const handleUpdate = (taskId) => {
+    try {
+      let taskName = prompt("Please enter your taks name");
+
+      if (taskName) {
+        axios
+          .put(
+            `${process.env.REACT_APP_BASE_URL}/todos/update`,
+            {
+              id: taskId,
+              newName: taskName,
+            },
+            {
+              headers: { Authorization: "Bearer " + token },
+            }
+          )
+          .then((result) => {
+            setRender(render + 1);
+            console.log(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Typography align="center"> {todo.name}</Typography>
+      <Button onClick={() => handleUpdate(todo._id)}> update</Button>
     </div>
   );
 };
