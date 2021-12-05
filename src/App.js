@@ -20,6 +20,7 @@ function App() {
     <div className="App">
       <Header
         user={user}
+        role={role}
         setUser={setUser}
         setToken={setToken}
         setRole={setRole}

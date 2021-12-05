@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Box,
@@ -13,24 +14,30 @@ export const Login = ({ setUser, setRole, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/login`, { email, password })
-      .then((response) => {
-        setUser(response.data.result.email);
-        localStorage.setItem("user", response.data.result.email);
-        setRole(response.data.result.role.role);
-        localStorage.setItem("role", response.data.result.role.role);
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/login`, { email, password })
+        .then((response) => {
+          setUser(response.data.result.email);
+          localStorage.setItem("user", response.data.result.email);
+          setRole(response.data.result.role.role);
+          localStorage.setItem("role", response.data.result.role.role);
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
 
-    console.log(email, password);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

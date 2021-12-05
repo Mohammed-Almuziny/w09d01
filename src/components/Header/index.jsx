@@ -9,9 +9,10 @@ import {
   Button,
 } from "@mui/material";
 
+import { RightSide } from "./RightSide";
 import { LeftSide } from "./LeftSide";
 
-export const Header = ({ user, setUser, setToken, setRole }) => {
+export const Header = ({ user, setUser, setToken, role, setRole }) => {
   return (
     <header className="App">
       <Box sx={{ flexGrow: 1, pb: 4 }}>
@@ -21,12 +22,7 @@ export const Header = ({ user, setUser, setToken, setRole }) => {
               TodosSite
             </Typography>
 
-            <Link color="inherit" underline="none" href="/" mr={2}>
-              home
-            </Link>
-            <Link color="inherit" underline="none" href="/todos" mr={2}>
-              todos
-            </Link>
+            <RightSide role={role} />
 
             <Typography sx={{ flexGrow: 1 }}></Typography>
 
