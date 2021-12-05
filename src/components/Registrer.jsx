@@ -25,7 +25,7 @@ export const Registrer = () => {
         console.log(response);
       })
       .catch((err) => {
-        log(err.response.data);
+        console.log(err.response.data);
       });
     navigate("/logIn");
   };

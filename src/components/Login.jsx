@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import axios from "axios";
 import {
   Container,
   Box,
@@ -8,12 +9,27 @@ import {
   Button,
 } from "@mui/material";
 
-export const Login = () => {
+export const Login = ({ setUser, setRole, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/login`, { email, password })
+      .then((response) => {
+        setUser(response.data.result.email);
+        localStorage.setItem("user", response.data.result.email);
+        setRole(response.data.result.role.role);
+        localStorage.setItem("role", response.data.result.role.role);
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response.data);
+      });
 
     console.log(email, password);
   };
