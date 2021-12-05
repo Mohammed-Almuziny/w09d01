@@ -1,11 +1,13 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 
 import { TodoCard } from "./../components/TodoCard";
+import { AddTodo } from "./../components/AddTodo";
 
 export const Todos = ({ user, token }) => {
   const [todos, setTodos] = useState([]);
+  const [render, setRender] = useState(0);
 
   const getTodos = () => {
     try {
@@ -28,11 +30,17 @@ export const Todos = ({ user, token }) => {
     if (token) getTodos();
   }, []);
 
+  useEffect(() => {
+    console.log(render);
+    getTodos();
+  }, [render]);
+
   return user ? (
     <Container>
       {todos.map((todo) => (
-        <TodoCard todo={todo} />
+        <TodoCard todo={todo} key={todo._id} />
       ))}
+      <AddTodo token={token} render={render} setRender={setRender} />
     </Container>
   ) : (
     <Typography>you have to log in</Typography>
