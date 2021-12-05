@@ -30,9 +30,9 @@ export const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               type="email"
-              id="userName"
-              label="user Name Or Email"
-              placeholder="user Name Or Email"
+              id="email"
+              label="email"
+              placeholder="email"
               margin="normal"
               required
             />
