@@ -9,6 +9,7 @@ export const LeftSide = ({ user, setUser, setToken, setRole }) => {
     setToken();
     setRole();
   };
+  
   return user ? (
     <>
       <h1>{user} </h1>

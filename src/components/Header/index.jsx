@@ -24,6 +24,9 @@ export const Header = ({ user, setUser, setToken, setRole }) => {
             <Link color="inherit" underline="none" href="/" mr={2}>
               home
             </Link>
+            <Link color="inherit" underline="none" href="/todos" mr={2}>
+              todos
+            </Link>
 
             <Typography sx={{ flexGrow: 1 }}></Typography>
 
