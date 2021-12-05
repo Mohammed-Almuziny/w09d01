@@ -6,6 +6,7 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { Todos } from "./pages/Todos";
+import { AllTodos } from "./pages/AllTodos";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 
@@ -29,6 +30,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/todos" element={<Todos user={user} token={token} />} />
+        <Route
+          path="/allTodos"
+          element={<AllTodos user={user} token={token} />}
+        />
         <Route
           path="/LogIn"
           element={
