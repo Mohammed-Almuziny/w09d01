@@ -1,4 +1,6 @@
-import React from "react";
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Container,
   Box,
@@ -9,10 +11,25 @@ import {
 } from "@mui/material";
 
 export const Registrer = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("sumbit");
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/register`, { email, password })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        if (err) {
+          alert(err.response.data);
+        }
+      });
+    navigate("/logIn");
   };
 
   return (
@@ -24,14 +41,7 @@ export const Registrer = () => {
         <form onSubmit={handleSubmit}>
           <FormGroup>
             <TextField
-              fullWidth
-              id="userName"
-              label="userName"
-              placeholder="userName"
-              margin="normal"
-              required
-            />
-            <TextField
+              onChange={(e) => setEmail(e.target.value)}
               fullWidth
               type="email"
               id="email"
@@ -41,6 +51,7 @@ export const Registrer = () => {
               required
             />
             <TextField
+              onChange={(e) => setPassword(e.target.value)}
               fullWidth
               type="password"
               id="password"
@@ -51,7 +62,7 @@ export const Registrer = () => {
             />
           </FormGroup>
           <Typography align="center" my={2}>
-            <Button color="primary" variant="contained" type="submit">
+            <Button variant="contained" type="submit">
               register
             </Button>
           </Typography>
