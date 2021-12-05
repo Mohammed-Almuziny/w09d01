@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Container,
@@ -9,35 +10,30 @@ import {
   Button,
 } from "@mui/material";
 
-export const Login = ({ setUser, setRole, setToken }) => {
+export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.REACT_APP_BASE_URL}/login`, { email, password })
+      .post(`${process.env.REACT_APP_BASE_URL}/register`, { email, password })
       .then((response) => {
-        setUser(response.data.result.email);
-        localStorage.setItem("user", response.data.result.email);
-        setRole(response.data.result.role.role);
-        localStorage.setItem("role", response.data.result.role.role);
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data);
       });
-
-    console.log(email, password);
+    navigate("/logIn");
   };
 
   return (
     <Container maxWidth="md">
       <Typography variant="h3" align="center" mb={2}>
-        log in
+        register
       </Typography>
       <Box sx={{ bgcolor: "background.paper", p: 2 }}>
         <form onSubmit={handleSubmit}>
@@ -48,7 +44,7 @@ export const Login = ({ setUser, setRole, setToken }) => {
               type="email"
               id="email"
               label="email"
-              placeholder="email"
+              placeholder="Email"
               margin="normal"
               required
             />
@@ -65,7 +61,7 @@ export const Login = ({ setUser, setRole, setToken }) => {
           </FormGroup>
           <Typography align="center" my={2}>
             <Button variant="contained" type="submit">
-              log in
+              register
             </Button>
           </Typography>
         </form>

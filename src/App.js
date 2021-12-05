@@ -3,8 +3,10 @@ import { Routes, Route } from "react-router";
 import dotenv from "dotenv";
 import "./App.css";
 
+import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
-import { Login } from "./components/Login";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 dotenv.config();
 
@@ -15,6 +17,13 @@ function App() {
 
   return (
     <div className="App">
+      <Header
+        user={user}
+        setUser={setUser}
+        setToken={setToken}
+        setRole={setRole}
+      />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -28,6 +37,7 @@ function App() {
             />
           }
         />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

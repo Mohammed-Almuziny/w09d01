@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Container,
@@ -10,30 +9,34 @@ import {
   Button,
 } from "@mui/material";
 
-export const Registrer = () => {
+export const Login = ({ setUser, setRole, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.REACT_APP_BASE_URL}/register`, { email, password })
+      .post(`${process.env.REACT_APP_BASE_URL}/login`, { email, password })
       .then((response) => {
-        console.log(response);
+        setUser(response.data.result.email);
+        localStorage.setItem("user", response.data.result.email);
+        setRole(response.data.result.role.role);
+        localStorage.setItem("role", response.data.result.role.role);
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
-    navigate("/logIn");
+
+    console.log(email, password);
   };
 
   return (
     <Container maxWidth="md">
       <Typography variant="h3" align="center" mb={2}>
-        register
+        log in
       </Typography>
       <Box sx={{ bgcolor: "background.paper", p: 2 }}>
         <form onSubmit={handleSubmit}>
@@ -44,7 +47,7 @@ export const Registrer = () => {
               type="email"
               id="email"
               label="email"
-              placeholder="Email"
+              placeholder="email"
               margin="normal"
               required
             />
@@ -61,7 +64,7 @@ export const Registrer = () => {
           </FormGroup>
           <Typography align="center" my={2}>
             <Button variant="contained" type="submit">
-              register
+              log in
             </Button>
           </Typography>
         </form>

@@ -1,12 +1,11 @@
 import React from "react";
 
-import { Registrer } from "../components/Registrer";
+import { Register } from "./Register";
 
 export const Home = () => {
   return (
     <div>
       home
-      <Registrer />
     </div>
   );
 };
